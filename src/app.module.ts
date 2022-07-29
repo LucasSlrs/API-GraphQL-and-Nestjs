@@ -5,7 +5,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
+import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
+import { ArticleModule } from './article/article.module';
 
 @Module({
   imports: [
@@ -27,9 +29,10 @@ import { AppService } from './app.service';
         entities: [join(__dirname, '**', '*.model.{ts,js}')],
         synchronize: true,
       })
-    })
+    }),
+    ArticleModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppResolver],
 })
 export class AppModule { }
